@@ -1,0 +1,227 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Doctors</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        nav {
+            background-color: #4CAF50;
+            padding: 10px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        nav ul li {
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            display: block;
+            font-weight: bold;
+        }
+
+        nav ul li a:hover {
+            background-color: #45a049;
+        }
+
+        header {
+            background-color: #f0f0f0;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+            color: #4CAF50;
+        }
+
+        .team-section {
+            padding: 50px 20px;
+            background-color: #e0f7fa;
+            text-align: center;
+        }
+
+        .team-section h2 {
+            color: #4CAF50;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .team-section h2::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background-color: #4CAF50;
+            margin: 10px auto 0;
+        }
+
+        .team-section p {
+            color: #666;
+            font-size: 1.2em;
+            margin-bottom: 40px;
+        }
+
+        .team-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .team-member {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+            max-width: 300px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+
+        .team-member img {
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            margin-bottom: 20px;
+        }
+
+        .team-member h3 {
+            color: #4CAF50;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .team-member p {
+            color: #666;
+            font-size: 1em;
+            margin-bottom: 20px;
+        }
+
+        .team-member a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            padding: 10px 20px;
+            border: 2px solid #4CAF50;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .team-member a:hover {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .floating-button {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            right: 40px;
+            background-color: #FF0000;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .floating-button:hover {
+            background-color: #e60000;
+            transform: translateY(-5px);
+        }
+
+        .floating-button i {
+            font-size: 30px;
+            line-height: 60px;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="heartrate.html">Heart Rate</a></li>
+            <li><a href="bloodpressure.html">Blood Pressure</a></li>
+            <li><a href="bmicalculator.html">BMI Calculator</a></li>
+            <li><a href="doctors.html">Doctors</a></li>
+            <li><a href="contactus.html">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <header>
+        <h1>Our Doctors</h1>
+    </header>
+
+    <section class="team-section">
+        <h2>Meet Our Team</h2>
+        <p>Our team of experienced doctors is here to provide the best care for you.</p>
+        <div class="team-container">
+            <div class="team-member">
+                <img src="D:\User\Desktop\Summer 2024\SWE401\Project\Final\PersonA.jpeg" alt="Dr. Muddassir">
+                <h3>Dr. Muddassir Ahmed</h3>
+                <p>Cardiologist</p>
+                <p>1083160</p>
+                <a href="mailto:1083160@students.adu.ac.ae">Contact</a>
+            </div>
+            <div class="team-member">
+                <img src="D:\User\Desktop\Summer 2024\SWE401\Project\Final\PersonB.jpeg" alt="Dr. Salman">
+                <h3>Dr. Salman Sohail</h3>
+                <p>Neurologist</p>
+                <p>1083956</p>
+                <a href="mailto:1083956@students.adu.ac.ae">Contact</a>
+            </div>
+            <div class="team-member">
+                <img src="D:\User\Desktop\Summer 2024\SWE401\Project\Final\PersonC.jpeg" alt="Dr. Jibril">
+                <h3>Dr. Jibril Abubakar</h3>
+                <p>General Practitioner</p>
+                <p>1078510</p>
+                <a href="mailto:1078510@students.adu.ac.ae">Contact</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="floating-button" onclick="playSound()">
+        <i class="material-icons">notifications</i>
+    </div>
+
+    <audio id="notificationSound" src="D:\User\Desktop\Summer 2024\SWE401\Project\Final\alarm.mp3"></audio>
+
+    <script>
+        function playSound() {
+            document.getElementById('notificationSound').play();
+        }
+    </script>
+</body>
+</html>

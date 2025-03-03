@@ -1,0 +1,473 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        nav {
+            background-color: #4CAF50;
+            padding: 10px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        nav ul li {
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            display: block;
+            font-weight: bold;
+        }
+
+        nav ul li a:hover {
+            background-color: #45a049;
+        }
+
+        header {
+            background-color: #f0f0f0;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+            color: #4CAF50;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        .content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .left-panel {
+            width: 40%;
+            text-align: center;
+        }
+
+        .left-panel h2 {
+            font-size: 1.5em;
+            color: #4CAF50;
+        }
+
+        .left-panel input {
+            padding: 10px;
+            font-size: 1em;
+            width: 80%;
+            margin: 10px 0;
+        }
+
+        .left-panel button {
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .left-panel button:hover {
+            background-color: #45a049;
+        }
+
+        .right-panel {
+            width: 50%;
+        }
+
+        .gauge-container {
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .history {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .history h2 {
+            color: #4CAF50;
+        }
+
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .history-table th, .history-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .tips {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .tips h2 {
+            color: #4CAF50;
+            margin-top: 0;
+            font-size: 1.8em;
+            position: relative;
+        }
+
+        .tips h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: #4CAF50;
+            margin: 10px 0;
+        }
+
+        .tips ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .tips ul li {
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            margin: 10px;
+            width: calc(50% - 20px);
+            display: flex;
+            align-items: center;
+        }
+
+        .tips ul li i {
+            font-size: 2em;
+            color: #4CAF50;
+            margin-right: 10px;
+        }
+
+        .category {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .category-color {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            border-radius: 50%;
+        }
+
+        .category-label {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .green {
+            background-color: #4CAF50;
+        }
+
+        .yellow {
+            background-color: #FFEB3B;
+        }
+
+        .orange {
+            background-color: #FF9800;
+        }
+
+        .red {
+            background-color: #FF5722;
+        }
+
+        .dark-red {
+            background-color: #800000;
+        }
+
+        .floating-button {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            right: 40px;
+            background-color: #FF0000;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .floating-button:hover {
+            background-color: #e60000;
+            transform: translateY(-5px);
+        }
+
+        .floating-button i {
+            font-size: 30px;
+            line-height: 60px;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.16.2/dist/xlsx.full.min.js"></script>
+    <script src="https://bernii.github.io/gauge.js/dist/gauge.min.js"></script>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="heartrate.html">Heart Rate</a></li>
+            <li><a href="bloodpressure.html">Blood Pressure</a></li>
+            <li><a href="bmicalculator.html">BMI Calculator</a></li>
+            <li><a href="doctors.html">Doctors</a></li>
+            <li><a href="contactus.html">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <header>
+        <h1>BMI Calculator</h1>
+    </header>
+
+    <main>
+        <div class="content">
+            <div class="left-panel">
+                <h2>Calculate Your BMI</h2>
+                <input type="number" id="heightInput" placeholder="Height (cm)">
+                <input type="number" id="weightInput" placeholder="Weight (kg)">
+                <button onclick="calculateBMI()">Calculate</button>
+                <button class="export-btn" onclick="exportToExcel()">Export to Excel</button>
+                <button class="reset-btn" onclick="resetEntries()">Reset</button>
+            </div>
+            <div class="right-panel">
+                <div class="gauge-container">
+                    <canvas id="bmiGauge" width="300" height="300"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="history">
+            <h2>Past Entries</h2>
+            <table class="history-table" id="historyTable">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Height</th>
+                        <th>Weight</th>
+                        <th>BMI</th>
+                        <th>Category</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Entries will be dynamically added here -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="tips">
+            <h2>BMI Categories and Tips</h2>
+            <div class="category">
+                <div class="category-color green"></div>
+                <div class="category-label">Underweight: BMI < 18.5</div>
+            </div>
+            <div class="category">
+                <div class="category-color yellow"></div>
+                <div class="category-label">Normal weight: BMI 18.5–24.9</div>
+            </div>
+            <div class="category">
+                <div class="category-color orange"></div>
+                <div class="category-label">Overweight: BMI 25–29.9</div>
+            </div>
+            <div class="category">
+                <div class="category-color red"></div>
+                <div class="category-label">Obesity: BMI 30–39.9</div>
+            </div>
+            <div class="category">
+                <div class="category-color dark-red"></div>
+                <div class="category-label">Severe Obesity: BMI ≥ 40</div>
+            </div>
+            <h3 style="margin-top: 20px; font-size: 1.5em; color: #4CAF50;">Tips for Maintaining a Healthy BMI:</h3>
+            <ul>
+                <li><i class="fas fa-apple-alt"></i>Eat a balanced diet rich in fruits and vegetables.</li>
+                <li><i class="fas fa-dumbbell"></i>Exercise regularly.</li>
+                <li><i class="fas fa-hamburger"></i>Avoid excessive junk food.</li>
+                <li><i class="fas fa-tint"></i>Stay hydrated.</li>
+                <li><i class="fas fa-weight"></i>Monitor your weight regularly.</li>
+            </ul>
+        </div>
+    </main>
+
+    <div class="floating-button" onclick="playSound()">
+        <i class="material-icons">notifications</i>
+    </div>
+
+    <audio id="notificationSound" src="D:\User\Desktop\Summer 2024\SWE401\Project\Final\alarm.mp3"></audio>
+
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script>
+        let bmiData = [
+            { date: '2024-08-01T12:00:00', height: 180, weight: 75, bmi: 23.15, category: 'Normal weight' },
+            { date: '2024-08-02T10:00:00', height: 165, weight: 68, bmi: 24.98, category: 'Normal weight' },
+            { date: '2024-08-03T08:00:00', height: 170, weight: 80, bmi: 27.68, category: 'Overweight' }
+        ];
+
+        let bmiGauge = null;
+        let gaugeOptions = {
+            angle: -0.25, // The span of the gauge arc
+            lineWidth: 0.1, // The line thickness
+            radiusScale: 0.9, // Relative radius
+            pointer: {
+                length: 0.6, // Relative to gauge radius
+                strokeWidth: 0.035, // The thickness
+                color: '#000000' // Fill color
+            },
+            limitMax: false, // If false, max value increases automatically if value > maxValue
+            limitMin: false, // If true, the min value of the gauge will be fixed
+            colorStart: '#6FADCF', // Colors
+            colorStop: '#8FC0DA', // just experiment with them
+            strokeColor: '#E0E0E0', // to see which ones work best for you
+            generateGradient: true,
+            highDpiSupport: true, // High resolution support
+            staticZones: [
+                {strokeStyle: "#30B32D", min: 0, max: 18.5}, // Green
+                {strokeStyle: "#FFDD00", min: 18.5, max: 24.9}, // Yellow
+                {strokeStyle: "#F03E3E", min: 24.9, max: 29.9}, // Red
+                {strokeStyle: "#FF0000", min: 29.9, max: 40},  // Red
+                {strokeStyle: "#800000", min: 40, max: 100}   // Dark Red
+            ],
+            staticLabels: {
+                font: "10px sans-serif",  // Specifies font
+                labels: [0, 18.5, 24.9, 29.9, 40, 100],  // Print labels at these values
+                color: "#000000",  // Optional: Label text color
+                fractionDigits: 0  // Optional: Numerical precision. 0=round off.
+            },
+        };
+        
+        window.onload = function() {
+            var target = document.getElementById('bmiGauge'); // your canvas element
+            bmiGauge = new Gauge(target).setOptions(gaugeOptions); // create sexy gauge!
+            bmiGauge.maxValue = 100; // set max gauge value
+            bmiGauge.setMinValue(0);  // Prefer setter over gauge.minValue = 0
+            bmiGauge.animationSpeed = 32; // set animation speed (32 is default value)
+            bmiGauge.set(0); // set actual value
+            loadEntriesFromLocalStorage();
+        }
+
+        function calculateBMI() {
+            const height = document.getElementById('heightInput').value;
+            const weight = document.getElementById('weightInput').value;
+            if (height && weight) {
+                const bmi = (weight / ((height / 100) ** 2)).toFixed(2);
+                const now = new Date().toLocaleString();
+                const category = getBMICategory(bmi);
+                const entry = { date: now, height: Number(height), weight: Number(weight), bmi: Number(bmi), category: category };
+                bmiData.push(entry);
+                addEntryToTable(entry);
+                updateGauge(bmi);
+                saveEntryToLocalStorage(entry);
+            }
+        }
+
+        function getBMICategory(bmi) {
+            if (bmi < 18.5) return 'Underweight';
+            if (bmi < 25) return 'Normal weight';
+            if (bmi < 30) return 'Overweight';
+            return 'Obesity';
+        }
+
+        function addEntryToTable(entry) {
+            const table = document.getElementById('historyTable').querySelector('tbody');
+            const row = table.insertRow();
+            const dateCell = row.insertCell(0);
+            const heightCell = row.insertCell(1);
+            const weightCell = row.insertCell(2);
+            const bmiCell = row.insertCell(3);
+            const categoryCell = row.insertCell(4);
+            dateCell.textContent = entry.date;
+            heightCell.textContent = entry.height + ' cm';
+            weightCell.textContent = entry.weight + ' kg';
+            bmiCell.textContent = entry.bmi;
+            categoryCell.textContent = entry.category;
+        }
+
+        function updateGauge(bmi) {
+            bmiGauge.set(bmi); // set actual value
+        }
+
+        function saveEntryToLocalStorage(entry) {
+            let entries = JSON.parse(localStorage.getItem('bmiEntries')) || [];
+            entries.push(entry);
+            localStorage.setItem('bmiEntries', JSON.stringify(entries));
+        }
+
+        function loadEntriesFromLocalStorage() {
+            let entries = JSON.parse(localStorage.getItem('bmiEntries')) || [];
+            entries.forEach(entry => {
+                addEntryToTable(entry);
+            });
+            if (entries.length > 0) {
+                updateGauge(entries[entries.length - 1].bmi);
+            }
+        }
+
+        function resetEntries() {
+            localStorage.removeItem('bmiEntries');
+            bmiData = [];
+            document.getElementById('historyTable').querySelector('tbody').innerHTML = '';
+            updateGauge(0);
+        }
+
+        function exportToExcel() {
+            const ws = XLSX.utils.aoa_to_sheet([
+                ['Date', 'Height', 'Weight', 'BMI', 'Category'],
+                ...bmiData.map(entry => [entry.date, entry.height, entry.weight, entry.bmi, entry.category])
+            ]);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'BMI Data');
+            XLSX.writeFile(wb, 'BMIData.xlsx');
+        }
+
+        function playSound() {
+            document.getElementById('notificationSound').play();
+        }
+
+    </script>
+</body>
+</html>

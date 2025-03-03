@@ -1,0 +1,511 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Pressure Monitoring</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        nav {
+            background-color: #4CAF50;
+            padding: 10px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        nav ul li {
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            display: block;
+            font-weight: bold;
+        }
+
+        nav ul li a:hover {
+            background-color: #45a049;
+        }
+
+        header {
+            background-color: #f0f0f0;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+            color: #4CAF50;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-section {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .input-section input {
+            padding: 10px;
+            font-size: 1em;
+            width: 100px;
+            margin: 0 5px;
+        }
+
+        .input-section button {
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .input-section button:hover {
+            background-color: #45a049;
+        }
+
+        .input-section .export-btn {
+            background-color: #FF5733;
+        }
+
+        .input-section .export-btn:hover {
+            background-color: #FF4500;
+        }
+
+        .history {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .history h2 {
+            color: #4CAF50;
+        }
+
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .history-table th, .history-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .charts {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .chart-container {
+            width: 45%;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .stat {
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 30%;
+        }
+
+        .tips {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .tips h2 {
+            color: #4CAF50;
+            margin-top: 0;
+            position: relative;
+        }
+
+        .tips h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: #4CAF50;
+            margin: 10px 0;
+        }
+
+        .tips ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .tips ul li {
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            margin: 10px;
+            width: calc(50% - 20px);
+            display: flex;
+            align-items: center;
+        }
+
+        .tips ul li i {
+            font-size: 2em;
+            color: #4CAF50;
+            margin-right: 10px;
+        }
+
+        .tips ul li p {
+            font-size: 1em;
+            margin: 0;
+        }
+
+        .floating-button {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            right: 40px;
+            background-color: #FF0000;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .floating-button:hover {
+            background-color: #e60000;
+            transform: translateY(-5px);
+        }
+
+        .floating-button i {
+            font-size: 30px;
+            line-height: 60px;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="heartrate.html">Heart Rate</a></li>
+            <li><a href="bloodpressure.html">Blood Pressure</a></li>
+            <li><a href="bmicalculator.html">BMI Calculator</a></li>
+            <li><a href="doctors.html">Doctors</a></li>
+            <li><a href="contactus.html">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <header>
+        <h1>Blood Pressure Monitoring</h1>
+    </header>
+
+    <main>
+        <div class="content">
+            <div class="input-section">
+                <input type="number" id="systolicInput" placeholder="Systolic" min="80" max="200">
+                <input type="number" id="diastolicInput" placeholder="Diastolic" min="50" max="130">
+                <button onclick="addBloodPressure()">Save</button>
+                <button class="export-btn" onclick="exportToExcel()">Export to Excel</button>
+                <button class="reset-btn" onclick="resetEntries()">Reset</button>
+            </div>
+
+            <div class="history">
+                <h2>Past Entries</h2>
+                <table class="history-table" id="historyTable">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Systolic</th>
+                            <th>Diastolic</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Entries will be dynamically added here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="charts">
+                <div class="chart-container">
+                    <canvas id="systolicChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <canvas id="diastolicChart"></canvas>
+                </div>
+            </div>
+
+            <div class="stats">
+                <div class="stat" id="avgBP">
+                    <h2>Avg Blood Pressure</h2>
+                    <p id="avgBPValue">120/80 mmHg</p>
+                </div>
+                <div class="stat" id="minBP">
+                    <h2>Min Blood Pressure</h2>
+                    <p id="minBPValue">110/70 mmHg</p>
+                </div>
+                <div class="stat" id="maxBP">
+                    <h2>Max Blood Pressure</h2>
+                    <p id="maxBPValue">130/90 mmHg</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="tips">
+            <h2>Tips for Maintaining Healthy Blood Pressure</h2>
+            <ul>
+                <li><i class="material-icons">directions_run</i><p>Engage in regular physical activity.</p></li>
+                <li><i class="material-icons">fastfood</i><p>Maintain a balanced diet rich in fruits and vegetables.</p></li>
+                <li><i class="material-icons">local_drink</i><p>Reduce salt intake and stay hydrated.</p></li>
+                <li><i class="material-icons">fitness_center</i><p>Exercise regularly to keep your heart healthy.</p></li>
+                <li><i class="material-icons">smoking_rooms</i><p>Avoid smoking and limit alcohol consumption.</p></li>
+                <li><i class="material-icons">self_improvement</i><p>Manage stress through relaxation techniques.</p></li>
+                <li><i class="material-icons">hotel</i><p>Ensure you get enough sleep each night.</p></li>
+                <li><i class="material-icons">monitor_heart</i><p>Monitor your blood pressure regularly.</p></li>
+            </ul>
+        </div>
+    </main>
+
+    <div class="floating-button" onclick="playSound()">
+        <i class="material-icons">notifications</i>
+    </div>
+
+    <audio id="notificationSound" src="D:\User\Desktop\Summer 2024\SWE401\Project\Final\alarm.mp3"></audio>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.16.2/dist/xlsx.full.min.js"></script>
+    <script>
+        let bloodPressureData = [
+            { date: '2024-08-02T12:00:00', systolic: 120, diastolic: 80 },
+            { date: '2024-08-02T10:00:00', systolic: 118, diastolic: 78 },
+            { date: '2024-08-02T08:00:00', systolic: 122, diastolic: 82 },
+            { date: '2024-08-02T06:00:00', systolic: 125, diastolic: 85 },
+            { date: '2024-08-02T04:00:00', systolic: 130, diastolic: 88 },
+            { date: '2024-08-02T02:00:00', systolic: 128, diastolic: 86 },
+            { date: '2024-08-02T00:00:00', systolic: 126, diastolic: 84 }
+        ];
+
+        function updateStats() {
+            const avgSystolic = bloodPressureData.reduce((sum, entry) => sum + entry.systolic, 0) / bloodPressureData.length;
+            const avgDiastolic = bloodPressureData.reduce((sum, entry) => sum + entry.diastolic, 0) / bloodPressureData.length;
+            document.getElementById('avgBPValue').innerText = avgSystolic.toFixed(2) + '/' + avgDiastolic.toFixed(2) + ' mmHg';
+
+            const minSystolic = Math.min(...bloodPressureData.map(entry => entry.systolic));
+            const minDiastolic = Math.min(...bloodPressureData.map(entry => entry.diastolic));
+            document.getElementById('minBPValue').innerText = minSystolic + '/' + minDiastolic + ' mmHg';
+
+            const maxSystolic = Math.max(...bloodPressureData.map(entry => entry.systolic));
+            const maxDiastolic = Math.max(...bloodPressureData.map(entry => entry.diastolic));
+            document.getElementById('maxBPValue').innerText = maxSystolic + '/' + maxDiastolic + ' mmHg';
+        }
+
+        const labels = bloodPressureData.map(entry => new Date(entry.date).toLocaleString());
+        const systolicData = bloodPressureData.map(entry => entry.systolic);
+        const diastolicData = bloodPressureData.map(entry => entry.diastolic);
+
+        const systolicCtx = document.getElementById('systolicChart').getContext('2d');
+        const systolicChart = new Chart(systolicCtx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Systolic',
+                    data: systolicData,
+                    borderColor: '#4CAF50',
+                    borderWidth: 2,
+                    fill: false
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Time'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Systolic (mmHg)'
+                        },
+                        beginAtZero: false
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Systolic Blood Pressure'
+                    }
+                }
+            }
+        });
+
+        const diastolicCtx = document.getElementById('diastolicChart').getContext('2d');
+        const diastolicChart = new Chart(diastolicCtx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Diastolic',
+                    data: diastolicData,
+                    borderColor: '#FF5733',
+                    borderWidth: 2,
+                    fill: false
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Time'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Diastolic (mmHg)'
+                        },
+                        beginAtZero: false
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Diastolic Blood Pressure'
+                    }
+                }
+            }
+        });
+
+        function addBloodPressure() {
+            const systolic = document.getElementById('systolicInput').value;
+            const diastolic = document.getElementById('diastolicInput').value;
+            if (systolic && diastolic) {
+                const now = new Date().toISOString();
+                const entry = { date: now, systolic: Number(systolic), diastolic: Number(diastolic) };
+                bloodPressureData.push(entry);
+                addEntryToTable(entry);
+                addEntryToChart(entry);
+                saveEntryToLocalStorage(entry);
+                updateStats();
+            }
+        }
+
+        function addEntryToTable(entry) {
+            const table = document.getElementById('historyTable').querySelector('tbody');
+            const row = table.insertRow();
+            const dateCell = row.insertCell(0);
+            const systolicCell = row.insertCell(1);
+            const diastolicCell = row.insertCell(2);
+            dateCell.textContent = new Date(entry.date).toLocaleString();
+            systolicCell.textContent = entry.systolic;
+            diastolicCell.textContent = entry.diastolic;
+        }
+
+        function addEntryToChart(entry) {
+            labels.push(new Date(entry.date).toLocaleString());
+            systolicData.push(entry.systolic);
+            diastolicData.push(entry.diastolic);
+            if (labels.length > 12) {
+                labels.shift();
+                systolicData.shift();
+                diastolicData.shift();
+            }
+            systolicChart.update();
+            diastolicChart.update();
+        }
+
+        function saveEntryToLocalStorage(entry) {
+            let entries = JSON.parse(localStorage.getItem('bloodPressureEntries')) || [];
+            entries.push(entry);
+            localStorage.setItem('bloodPressureEntries', JSON.stringify(entries));
+        }
+
+        function loadEntriesFromLocalStorage() {
+            let entries = JSON.parse(localStorage.getItem('bloodPressureEntries')) || [];
+            entries.forEach(entry => {
+                addEntryToTable(entry);
+                addEntryToChart(entry);
+            });
+            updateStats();
+        }
+
+        function resetEntries() {
+            localStorage.removeItem('bloodPressureEntries');
+            bloodPressureData = [];
+            labels.length = 0;
+            systolicData.length = 0;
+            diastolicData.length = 0;
+            document.getElementById('historyTable').querySelector('tbody').innerHTML = '';
+            systolicChart.update();
+            diastolicChart.update();
+            updateStats();
+        }
+
+        function exportToExcel() {
+            const ws = XLSX.utils.aoa_to_sheet([
+                ['Date', 'Systolic', 'Diastolic'],
+                ...bloodPressureData.map(entry => [new Date(entry.date).toLocaleString(), entry.systolic, entry.diastolic])
+            ]);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'BloodPressureData');
+            XLSX.writeFile(wb, 'BloodPressureData.xlsx');
+        }
+
+        function playSound() {
+            document.getElementById('notificationSound').play();
+        }
+
+        // Load entries and update charts when the page loads
+        window.onload = loadEntriesFromLocalStorage;
+    </script>
+</body>
+</html>

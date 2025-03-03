@@ -1,0 +1,217 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        nav {
+            background-color: #4CAF50;
+            padding: 10px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        nav ul li {
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            display: block;
+            font-weight: bold;
+        }
+
+        nav ul li a:hover {
+            background-color: #45a049;
+        }
+
+        header {
+            background-color: #f0f0f0;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+            color: #4CAF50;
+        }
+
+        .contact-section {
+            padding: 50px 20px;
+            background-color: #e0f7fa;
+            text-align: center;
+        }
+
+        .contact-section h2 {
+            color: #4CAF50;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .contact-section h2::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background-color: #4CAF50;
+            margin: 10px auto 0;
+        }
+
+        .contact-section p {
+            color: #666;
+            font-size: 1.2em;
+            margin-bottom: 40px;
+        }
+
+        .contact-form {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            max-width: 600px;
+            padding: 20px;
+            text-align: left;
+        }
+
+        .contact-form label {
+            color: #333;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .contact-form input, .contact-form textarea {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            height: 150px;
+        }
+
+        .contact-form button {
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .contact-form button:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+
+        .floating-button {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            right: 40px;
+            background-color: #FF0000;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .floating-button:hover {
+            background-color: #e60000;
+            transform: translateY(-5px);
+        }
+
+        .floating-button i {
+            font-size: 30px;
+            line-height: 60px;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="heartrate.html">Heart Rate</a></li>
+            <li><a href="bloodpressure.html">Blood Pressure</a></li>
+            <li><a href="bmicalculator.html">BMI Calculator</a></li>
+            <li><a href="doctors.html">Doctors</a></li>
+            <li><a href="contactus.html">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <header>
+        <h1>Contact Us</h1>
+    </header>
+
+    <section class="contact-section">
+        <h2>Get in Touch</h2>
+        <p>If you have any questions, please feel free to reach out to us using the form below.</p>
+        <div class="contact-form">
+            <form onsubmit="return submitForm()">
+                <label for="name">Patient Name</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="id">Patient ID</label>
+                <input type="text" id="id" name="id" required>
+
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" required>
+
+                <label for="message">Message</label>
+                <textarea id="message" name="message" required></textarea>
+
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </section>
+
+    <div class="floating-button" onclick="playSound()">
+        <i class="material-icons">notifications</i>
+    </div>
+
+    <audio id="notificationSound" src="D:\User\Desktop\Summer 2024\SWE401\Project\Final\alarm.mp3"></audio>
+
+    <script>
+        function playSound() {
+            document.getElementById('notificationSound').play();
+        }
+
+        function submitForm() {
+            alert('Your message has been submitted!');
+            return true;
+        }
+    </script>
+</body>
+</html>

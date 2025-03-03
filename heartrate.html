@@ -1,0 +1,402 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Rate Monitoring</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        nav {
+            background-color: #4CAF50;
+            padding: 10px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        nav ul li {
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            display: block;
+            font-weight: bold;
+        }
+
+        nav ul li a:hover {
+            background-color: #45a049;
+        }
+
+        header {
+            background-color: #f0f0f0;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+            color: #4CAF50;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        .content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .left-panel {
+            width: 25%;
+            text-align: center;
+        }
+
+        .left-panel h2 {
+            font-size: 1.5em;
+            color: #4CAF50;
+        }
+
+        .left-panel p {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+
+        .right-panel {
+            width: 70%;
+        }
+
+        .metrics {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .metric {
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 30%;
+        }
+
+        .input-section {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .input-section input {
+            padding: 10px;
+            font-size: 1em;
+            width: 200px;
+        }
+
+        .input-section button {
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .input-section button:hover {
+            background-color: #45a049;
+        }
+
+        .input-section .export-btn {
+            background-color: #FF5733;
+            margin-left: 10px;
+        }
+
+        .input-section .export-btn:hover {
+            background-color: #FF4500;
+        }
+
+        .tips {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .tips h2 {
+            color: #4CAF50;
+            margin-top: 0;
+            position: relative;
+        }
+
+        .tips h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: #4CAF50;
+            margin: 10px 0;
+        }
+
+        .tips ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .tips ul li {
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            margin: 10px;
+            width: calc(50% - 20px);
+            display: flex;
+            align-items: center;
+        }
+
+        .tips ul li i {
+            font-size: 2em;
+            color: #4CAF50;
+            margin-right: 10px;
+        }
+
+        .tips ul li p {
+            font-size: 1em;
+            margin: 0;
+        }
+
+        .floating-button {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            right: 40px;
+            background-color: #FF0000;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .floating-button:hover {
+            background-color: #e60000;
+            transform: translateY(-5px);
+        }
+
+        .floating-button i {
+            font-size: 30px;
+            line-height: 60px;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="heartrate.html">Heart Rate</a></li>
+            <li><a href="bloodpressure.html">Blood Pressure</a></li>
+            <li><a href="bmicalculator.html">BMI Calculator</a></li>
+            <li><a href="doctors.html">Doctors</a></li>
+            <li><a href="contactus.html">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <header>
+        <h1>Heart Rate Monitoring</h1>
+    </header>
+
+    <main>
+        <div class="content">
+            <div class="left-panel">
+                <h2>Avg Heart Rate</h2>
+                <p id="avgHeartRate">72 bpm</p>
+                <h2>Stress</h2>
+                <p id="stressLevel">Moderate</p>
+                <h2>Energy</h2>
+                <p id="energyLevel">Moderate</p>
+                <h2>Tension</h2>
+                <p id="tensionLevel">Moderate</p>
+                <h2>Min Heart Rate</h2>
+                <p id="minHeartRate">70 bpm</p>
+                <h2>Max Heart Rate</h2>
+                <p id="maxHeartRate">78 bpm</p>
+            </div>
+            <div class="right-panel">
+                <div class="metrics">
+                    <div class="metric">
+                        <h2>Pulse</h2>
+                        <p id="currentPulse">84 bpm</p>
+                    </div>
+                    <div class="metric">
+                        <h2>Score</h2>
+                        <p id="currentScore">23%</p>
+                    </div>
+                    <div class="metric">
+                        <h2>HRV</h2>
+                        <p id="currentHRV">56 ms</p>
+                    </div>
+                </div>
+                <div class="input-section">
+                    <input type="number" id="heartRateInput" placeholder="Enter heart rate">
+                    <button onclick="addHeartRate()">Submit</button>
+                    <button class="export-btn" onclick="exportToExcel()">Export to Excel</button>
+                </div>
+                <canvas id="heartRateChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+        <div class="tips">
+            <h2>Tips for Maintaining a Healthy Heart Rate</h2>
+            <ul>
+                <li><i class="material-icons">directions_run</i><p>Engage in regular physical activity, such as walking, jogging, or cycling.</p></li>
+                <li><i class="material-icons">fastfood</i><p>Maintain a balanced diet with plenty of fruits, vegetables, and lean proteins.</p></li>
+                <li><i class="material-icons">local_hospital</i><p>Regularly check your blood pressure and cholesterol levels.</p></li>
+                <li><i class="material-icons">fitness_center</i><p>Incorporate strength training exercises into your routine.</p></li>
+                <li><i class="material-icons">local_drink</i><p>Stay hydrated by drinking plenty of water throughout the day.</p></li>
+                <li><i class="material-icons">self_improvement</i><p>Practice relaxation techniques like meditation, yoga, or deep breathing exercises.</p></li>
+                <li><i class="material-icons">smoke_free</i><p>Avoid smoking and limit alcohol consumption.</p></li>
+            </ul>
+        </div>
+    </main>
+
+    <div class="floating-button" onclick="playSound()">
+        <i class="material-icons">notifications</i>
+    </div>
+
+    <audio id="notificationSound" src="D:\User\Desktop\Summer 2024\SWE401\Project\Final\alarm.mp3"></audio>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.16.2/dist/xlsx.full.min.js"></script>
+    <script>
+        let heartRates = [72, 75, 78, 70, 74, 73, 76, 71, 74, 72, 73, 75]; // Sample data
+        let timeLabels = ['12h', '11h', '10h', '9h', '8h', '7h', '6h', '5h', '4h', '3h', '2h', '1h']; // Time labels for the past 12 hours
+
+        const ctx = document.getElementById('heartRateChart').getContext('2d');
+        const heartRateChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: timeLabels,
+                datasets: [{
+                    label: 'Heart Rate',
+                    data: heartRates,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1,
+                    fill: false
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Time'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Heart Rate (bpm)'
+                        },
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        function addHeartRate() {
+            const heartRateInput = document.getElementById('heartRateInput').value;
+            if (heartRateInput) {
+                heartRates.push(Number(heartRateInput));
+                heartRates.shift(); 
+                updateChart();
+                updateAverage();
+                updateMetrics(heartRateInput);
+            }
+        }
+
+        function updateChart() {
+            heartRateChart.data.datasets[0].data = heartRates;
+            heartRateChart.update();
+        }
+
+        function updateAverage() {
+            const avgHeartRate = heartRates.reduce((sum, rate) => sum + rate, 0) / heartRates.length;
+            document.getElementById('avgHeartRate').innerText = avgHeartRate.toFixed(2) + ' bpm';
+        }
+
+        function updateMetrics(newHeartRate) {
+            const minHeartRate = Math.min(...heartRates);
+            const maxHeartRate = Math.max(...heartRates);
+            document.getElementById('minHeartRate').innerText = minHeartRate + ' bpm';
+            document.getElementById('maxHeartRate').innerText = maxHeartRate + ' bpm';
+            document.getElementById('currentPulse').innerText = newHeartRate + ' bpm';
+
+            let stressLevel, energyLevel, tensionLevel;
+            if (newHeartRate > 100) {
+                stressLevel = 'High';
+                energyLevel = 'Low';
+                tensionLevel = 'High';
+            } else if (newHeartRate > 80) {
+                stressLevel = 'Moderate';
+                energyLevel = 'Moderate';
+                tensionLevel = 'Moderate';
+            } else {
+                stressLevel = 'Low';
+                energyLevel = 'High';
+                tensionLevel = 'Low';
+            }
+
+            document.getElementById('stressLevel').innerText = stressLevel;
+            document.getElementById('energyLevel').innerText = energyLevel;
+            document.getElementById('tensionLevel').innerText = tensionLevel;
+        }
+
+        function exportToExcel() {
+            const ws = XLSX.utils.aoa_to_sheet([
+                ['Time', 'Heart Rate'],
+                ...timeLabels.map((label, i) => [label, heartRates[i]])
+            ]);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'HeartRates');
+            XLSX.writeFile(wb, 'HeartRateData.xlsx');
+        }
+
+        function playSound() {
+            document.getElementById('notificationSound').play();
+        }
+
+        // Initial average calculation
+        updateAverage();
+        updateMetrics(heartRates[heartRates.length - 1]);
+    </script>
+</body>
+</html>
